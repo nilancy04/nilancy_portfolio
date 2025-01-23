@@ -11,30 +11,12 @@ export default defineConfig({
     },
   },
   build: {
-    commonjsOptions: {
-      include: [/node_modules/],
-      transformMixedEsModules: true
-    },
-    sourcemap: true,
     outDir: 'dist',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          icons: ['react-icons']
-        },
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.jpg')) {
-            return 'assets/images/[name][extname]';
-          }
-          return 'assets/[name]-[hash][extname]';
-        }
-      }
-    }
+    sourcemap: true
   },
   optimizeDeps: {
     include: ['react-icons']
   },
   publicDir: 'public',
-  base: './'
+  base: '/'
 });
