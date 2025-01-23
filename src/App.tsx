@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { Github, Linkedin, Mail, Code2, BookOpen, Award, GraduationCap, Trophy, Sun, Moon, Instagram, Twitter } from 'lucide-react';
+import { Github, Linkedin, Code2, BookOpen, Award, GraduationCap, Trophy, Sun, Moon, Instagram, Twitter } from 'lucide-react';
 import StarryBackground from './components/StarryBackground';
 import ParallaxBackground from './components/ParallaxBackground';
-import SkillProgress from './components/SkillProgress';
 import AnimatedCounter from './components/AnimatedCounter';
 import * as SiIcons from 'react-icons/si';
 import profileImage from './assets/WhatsApp Image 2025-01-17 at 17.49.11_b8b0d799.jpg';
