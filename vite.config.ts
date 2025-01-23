@@ -23,13 +23,18 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           icons: ['react-icons']
         },
-        assetFileNames: 'assets/[name].[hash].[ext]'
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.jpg')) {
+            return 'assets/images/[name][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        }
       }
     }
   },
   optimizeDeps: {
     include: ['react-icons']
   },
-  base: '/',
-  assetsInclude: ['**/*.jpg', '**/*.png', '**/*.svg']
+  publicDir: 'public',
+  base: './'
 });

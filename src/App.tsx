@@ -6,7 +6,6 @@ import StarryBackground from './components/StarryBackground';
 import ParallaxBackground from './components/ParallaxBackground';
 import AnimatedCounter from './components/AnimatedCounter';
 import * as SiIcons from 'react-icons/si';
-import profileImage from './assets/WhatsApp Image 2025-01-17 at 17.49.11_b8b0d799.jpg';
 
 function App() {
   // Add state for theme
@@ -227,7 +226,7 @@ function App() {
               >
                 <div className="relative w-full aspect-square rounded-3xl overflow-hidden border-2 border-purple-500/10">
                   <img 
-                    src={profileImage}
+                    src="https://i.imgur.com/FTVGy1X.jpg"
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
