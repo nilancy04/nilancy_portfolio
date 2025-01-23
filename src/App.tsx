@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Github, Linkedin, Mail, Code2, BookOpen, Award, GraduationCap, Trophy, Sun, Moon, Instagram, Twitter } from 'lucide-react';
@@ -6,25 +6,12 @@ import StarryBackground from './components/StarryBackground';
 import ParallaxBackground from './components/ParallaxBackground';
 import SkillProgress from './components/SkillProgress';
 import AnimatedCounter from './components/AnimatedCounter';
-import { 
-  SiCplusplus, 
-  SiC, 
-  SiHtml5, 
-  SiCss3, 
-  SiJavascript, 
-  SiNodedotjs, 
-  SiGit, 
-  SiReact, 
-  SiMysql, 
-  SiMongodb, 
-  SiNextdotjs, 
-  SiPython,
-  SiOpenjdk
-} from 'react-icons/si';
+import * as SiIcons from 'react-icons/si';
+import profileImage from './assets/WhatsApp Image 2025-01-17 at 17.49.11_b8b0d799.jpg';
 
 function App() {
   // Add state for theme
-  const [isDark, setIsDark] = React.useState(true);
+  const [isDark, setIsDark] = useState(true);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -241,7 +228,7 @@ function App() {
               >
                 <div className="relative w-full aspect-square rounded-3xl overflow-hidden border-2 border-purple-500/10">
                   <img 
-                    src="src/assets/WhatsApp Image 2025-01-17 at 17.49.11_b8b0d799.jpg"
+                    src={profileImage}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
@@ -310,59 +297,59 @@ function App() {
               {[
                 {
                   name: "C++",
-                  icon: <SiCplusplus size={40} className="text-[#00599C]" />
+                  icon: <SiIcons.SiCplusplus size={40} className="text-[#00599C]" />
                 },
                 {
                   name: "C",
-                  icon: <SiC size={40} className="text-[#A8B9CC]" />
+                  icon: <SiIcons.SiC size={40} className="text-[#A8B9CC]" />
                 },
                 {
                   name: "HTML5",
-                  icon: <SiHtml5 size={40} className="text-[#E34F26]" />
+                  icon: <SiIcons.SiHtml5 size={40} className="text-[#E34F26]" />
                 },
                 {
                   name: "CSS3",
-                  icon: <SiCss3 size={40} className="text-[#1572B6]" />
+                  icon: <SiIcons.SiCss3 size={40} className="text-[#1572B6]" />
                 },
                 {
                   name: "JavaScript",
-                  icon: <SiJavascript size={40} className="text-[#F7DF1E]" />
+                  icon: <SiIcons.SiJavascript size={40} className="text-[#F7DF1E]" />
                 },
                 {
                   name: "Node.js",
-                  icon: <SiNodedotjs size={40} className="text-[#339933]" />
+                  icon: <SiIcons.SiNodedotjs size={40} className="text-[#339933]" />
                 },
                 {
                   name: "Git",
-                  icon: <SiGit size={40} className="text-[#F05032]" />
+                  icon: <SiIcons.SiGit size={40} className="text-[#F05032]" />
                 },
                 {
                   name: "React",
-                  icon: <SiReact size={40} className="text-[#61DAFB]" />
+                  icon: <SiIcons.SiReact size={40} className="text-[#61DAFB]" />
                 },
                 {
                   name: "MySQL",
-                  icon: <SiMysql size={40} className="text-[#4479A1]" />
+                  icon: <SiIcons.SiMysql size={40} className="text-[#4479A1]" />
                 },
                 {
                   name: "MongoDB",
-                  icon: <SiMongodb size={40} className="text-[#47A248]" />
+                  icon: <SiIcons.SiMongodb size={40} className="text-[#47A248]" />
                 },
                 {
                   name: "Next.js",
-                  icon: <SiNextdotjs size={40} className="text-white" />
+                  icon: <SiIcons.SiNextdotjs size={40} className="text-white" />
                 },
                 {
                   name: "Python",
-                  icon: <SiPython size={40} className="text-[#3776AB]" />
+                  icon: <SiIcons.SiPython size={40} className="text-[#3776AB]" />
                 },
                 {
                   name: "Java",
-                  icon: <SiOpenjdk size={40} className="text-[#007396]" />
+                  icon: <SiIcons.SiOpenjdk size={40} className="text-[#007396]" />
                 },
                 {
                   name: "Github",
-                  icon: <Github size={40} className="text-[#007396]" />
+                  icon: <SiIcons.SiGithub size={40} className="text-[#007396]" />
                 }
               ].map((skill, index) => (
                 <motion.div
