@@ -505,7 +505,7 @@ function App() {
                   title: "Bachelor of Technology",
                   school: "SRM Institute of Science and Technology",
                   period: "2023 - 2027",
-                  score: "9.47",
+                  score: "9.59",
                   scoreLabel: "CGPA",
                   maxScore: "10",
                   courses: ["Computer Science and Engineering"]
