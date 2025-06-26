@@ -7,7 +7,8 @@ import StarryBackground from './components/StarryBackground';
 import ParallaxBackground from './components/ParallaxBackground';
 import AnimatedCounter from './components/AnimatedCounter';
 import * as SiIcons from 'react-icons/si';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
+
 
 function App() {
   // Add state for theme
