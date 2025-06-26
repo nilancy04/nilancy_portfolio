@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Github, Linkedin, Code2, BookOpen, Award, GraduationCap, Trophy, Sun, Moon, Instagram, Twitter } from 'lucide-react';
@@ -6,10 +7,14 @@ import StarryBackground from './components/StarryBackground';
 import ParallaxBackground from './components/ParallaxBackground';
 import AnimatedCounter from './components/AnimatedCounter';
 import * as SiIcons from 'react-icons/si';
+import emailjs from 'emailjs-com';
 
 function App() {
   // Add state for theme
   const [isDark, setIsDark] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [sending, setSending] = useState(false);
+  const [resultMsg, setResultMsg] = useState('');
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -120,7 +125,7 @@ function App() {
       >
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-12">
-          {["About", "Skills", "Experience", "Education", "Certifications"].map((item, index) => (
+          {["About", "Skills", "Projects","Experience", "Education", "Certifications"].map((item, index) => (
             <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
@@ -271,7 +276,7 @@ function App() {
                 className={`${isDark ? 'text-gray-400' : 'text-gray-600'} mb-6 leading-relaxed`}
                 variants={textRevealVariants}
               >
-                I'm a second-year Computer Science Engineering student at SRM University. Fueled by my passion for technology, I'm diving into various fields of computing, from web development to cutting-edge research. With a strong foundation in programming and problem-solving, I'm constantly looking for opportunities to apply my skills to real-world projects and innovative collaborations. I believe in continuous growth and am always excited to learn and contribute to the tech community!
+                I'm a third-year Computer Science Engineering student at SRM University. Fueled by my passion for technology, I'm diving into various fields of computing, from web development to cutting-edge research. With a strong foundation in programming and problem-solving, I'm constantly looking for opportunities to apply my skills to real-world projects and innovative collaborations. I believe in continuous growth and am always excited to learn and contribute to the tech community!
               </motion.p>
               <motion.p 
                 className={`${isDark ? 'text-gray-400' : 'text-gray-600'} leading-relaxed`}
@@ -380,6 +385,9 @@ function App() {
           </div>
         </section>
 
+        {/* Add spacing between Skills and Projects */}
+        <div className="my-12" />
+
         {/* Projects Section */}
         <section id="projects" className={isDark ? 'bg-[#181a20]' : 'bg-white'}>
           <div className="container mx-auto px-6 py-20">
@@ -390,7 +398,8 @@ function App() {
               variants={textRevealVariants}
               className="text-3xl font-bold mb-4 text-center font-display tracking-tight"
             >
-              Featured <span className="text-purple-500">Projects</span>
+              Featured Projects
+              {/* <span className="text-purple-500">Projects</span> */}
             </motion.h2>
             <motion.div
               initial="hidden"
@@ -435,9 +444,17 @@ function App() {
                     ))}
                   </div>
                   <div className="flex gap-4 mt-auto">
-                    {project.link && (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-purple-500 hover:underline font-medium">Live Demo</a>
-                    )}
+                  {project.link && (
+  <a
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-purple-500 hover:text-gray-400 transition-colors font-medium"
+  >
+    Live Demo
+  </a>
+)}
+
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-500 transition-colors font-medium">GitHub</a>
                   </div>
                 </motion.div>
@@ -470,7 +487,7 @@ function App() {
               >
                 {[
                   {
-                    title: "MERN STACK INTERN",
+                    title: "Mern Stack Intern",
                     company: "SIKAR INFOTECH",
                     period: "05/2025 - 07/2025",
                     description: [
@@ -485,8 +502,8 @@ function App() {
                     // }
                   },
                   {
-                    title: "Virtual Internship - AI/ML",
-                    company: "India Edu Program",
+                    title: "AI-ML Intern",
+                    company: "EduSkills",
                     period: "10/2024 - 12/2024",
                     description: [
                       "Focused on AI/ML concepts and real-world applications.",
@@ -502,7 +519,7 @@ function App() {
                   {
                     title: "PMKVY-4.0",
                     company: "Skill India- NSDC",
-                    period: "2024- Ongoing",
+                    period: "2024 - 2025",
                     description: [
                       "Contributed to India's PMKVY 4.0 skill development initiative as an intern.  ",
                       "Assisted in curriculum design, data analysis, and program outreach.  ",
@@ -511,7 +528,7 @@ function App() {
                     ]
                   },
                   {
-                    title: "Virtual Internship-Google Android Development",
+                    title: "Android Developer Intern",
                     company: "NEAT- Eduskills",
                     period: "04/2024 - 06/2024",
                     description: [
@@ -705,46 +722,47 @@ function App() {
             >
               {[
                 {
-                  title: "TechNova",
-                  issuer: "Powered by ESSPL - Certification of Merit",
-                  date: "2024",
+                  title: "NPTEL-Database",
+                  issuer: "Indian Institute of Technology Madras",
+                  date: "Jan - Apr 2025",
                   icon: <Trophy className="w-12 h-12 text-purple-500" />,
-                  certificateUrl: "https://drive.google.com/file/d/1uMr9rgZza0L97-JcontM38kHUj9yYW2v/view?usp=drivesdk"
-                },
-                {
-                  title: "Smart India Hackathon",
-                  issuer: "Qualified for External Round",
-                  date: "2024",
-                  icon: <Trophy className="w-12 h-12 text-purple-500" />,
-                  certificateUrl: "https://drive.google.com/file/d/13Li_ZHD-qiV6qqS7sNHmjgNGrVjRfEr1/view?usp=drivesdk"
-                },
-                {
-                  title: "NPTEL-Programming in JAVA",
-                  issuer: "Skill India",
-                  date: "2024",
-                  icon: <Award className="w-12 h-12 text-purple-500" />,
-                  certificateUrl: "https://drive.google.com/file/d/15zCqgZ_uCExtiBGyaVmipwB6HAa4WCvQ/view?usp=drivesdk"
-                },
-                {
-                  title: "Pair Programming Hackathon",
-                  issuer: "By JA-ASSURE - Qualified for the Finals",
-                  date: "2024",
-                  icon: <Award className="w-12 h-12 text-purple-500" />,
-                  certificateUrl: "https://drive.google.com/file/d/1se1ShHsns6QD4kH27AQzUySId-DufzaJ/view?usp=drivesdk"
-                },
-                {
-                  title: "Hack Of Duty",
-                  issuer: "By SRM ACM Chapter",
-                  date: "2024",
-                  icon: <Award className="w-12 h-12 text-purple-500" />,
-                  certificateUrl: "https://drive.google.com/file/d/1OwnTXa1-Vh1zwJQyYfK_P7lAXyK7mrBg/view?usp=drivesdk"
+                  certificateUrl: "https://drive.google.com/file/d/1KfPDrl4EW-IJjaYqMrFwGA-rBAy5x8fL/view?usp=drivesdk"
                 },
                 {
                   title: "Software Engineering Job Simulation",
                   issuer: "By JP Morgan Chase & Co.",
-                  date: "2024",
+                  date: "12 Jan, 2025",
                   icon: <Award className="w-12 h-12 text-purple-500" />,
                   certificateUrl: "https://drive.google.com/file/d/1CF2gbvg77vhPnkPEyVlcVR66HbBK4tgs/view?usp=drivesdk"
+                },
+                {
+                  title: "NPTEL-Programming in JAVA",
+                  issuer: "Indian Institute of Technology Kharagpur",
+                  date: " Jul-Oct 2024",
+                  icon: <Award className="w-12 h-12 text-purple-500" />,
+                  certificateUrl: "https://drive.google.com/file/d/15zCqgZ_uCExtiBGyaVmipwB6HAa4WCvQ/view?usp=drivesdk"
+                },
+                {
+                  title: "OCI 2024",
+                  issuer: "Oracle University",
+                  date: "Feb 12, 2025",
+                  icon: <Award className="w-12 h-12 text-purple-500" />,
+                  certificateUrl: "https://drive.google.com/file/d/1mLs9cydpW5tGa_3L6yYM5olCj-AT-Isn/view?usp=drivesdk"
+                },
+                {
+                  title: "AWS",
+                  issuer: "AWS Academy",
+                  date: "12 march, 2025",
+                  icon: <Award className="w-12 h-12 text-purple-500" />,
+
+                  certificateUrl: "https://drive.google.com/file/d/1mRSxfppiBwqWNwYDiR4wfQYfVB7R4KrY/view?usp=drivesdk"
+                },
+                {
+                  title: "Technova",
+                  issuer: "ESSPL",
+                  date: "04 oct, 2024",
+                  icon: <Award className="w-12 h-12 text-purple-500" />,
+                  certificateUrl: "https://drive.google.com/file/d/1uMr9rgZza0L97-JcontM38kHUj9yYW2v/view?usp=drivesdk"
                 }
               ].map((cert, index) => (
                 <motion.div
@@ -799,6 +817,100 @@ function App() {
           </div>
         </section>
 
+        {/* Contact Me Section */}
+        <section id="contact" className={isDark ? 'bg-[#181a20]' : 'bg-white'}>
+          <div className="container mx-auto px-6 py-20">
+            <motion.h2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={textRevealVariants}
+              className="text-3xl font-bold mb-4 text-center font-display tracking-tight"
+            >
+              Contact Me
+               {/* <span className="text-purple-500">Me</span> */}
+            </motion.h2>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={itemVariants}
+              className={`mb-8 text-center ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+            >
+              Have a question, want to collaborate, or just want to say hi? Fill out the form below and I'll get back to you soon!
+            </motion.p>
+            <motion.form
+              ref={formRef}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={containerVariants}
+              className="max-w-xl mx-auto bg-opacity-80 rounded-2xl p-8 shadow-lg flex flex-col gap-6 border border-purple-500/10"
+              onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+                e.preventDefault();
+                setSending(true);
+                setResultMsg('');
+                if (formRef.current) {
+                  try {
+                    await emailjs.sendForm(
+                      'service_lwxbzhl',
+                      'template_kdyb7ix',
+                      formRef.current,
+                      'yYoQ8N3cfbVSfIvis'
+                    );
+                    setResultMsg('Message sent successfully!');
+                    formRef.current.reset();
+                  } catch (err) {
+                    setResultMsg('Failed to send message. Please try again.');
+                  }
+                }
+                setSending(false);
+              }}
+            >
+              <div>
+                <label className="block mb-2 font-medium" htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  className={`w-full px-4 py-2 rounded-lg border outline-none transition-colors ${isDark ? 'bg-[#23263a] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'} focus:border-purple-500`}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-2 font-medium" htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className={`w-full px-4 py-2 rounded-lg border outline-none transition-colors ${isDark ? 'bg-[#23263a] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'} focus:border-purple-500`}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block mb-2 font-medium" htmlFor="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  className={`w-full px-4 py-2 rounded-lg border outline-none transition-colors resize-none ${isDark ? 'bg-[#23263a] border-gray-700 text-white' : 'bg-gray-100 border-gray-300 text-gray-900'} focus:border-purple-500`}
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className={`w-full py-3 rounded-lg font-semibold transition-colors flex items-center justify-center ${isDark ? 'bg-purple-600 hover:bg-purple-700 text-white' : 'bg-purple-500 hover:bg-purple-600 text-white'}`}
+                disabled={sending}
+              >
+                {sending ? 'Sending...' : 'Send Message'}
+              </button>
+              {resultMsg && (
+                <div className={`text-center mt-2 font-medium ${resultMsg.includes('success') ? 'text-purple-600' : 'text-red-500'}`}>{resultMsg}</div>
+              )}
+            </motion.form>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className={`${
           isDark ? 'bg-[#0f1115] text-gray-400' : 'bg-white text-gray-600'
@@ -810,7 +922,7 @@ function App() {
               viewport={{ once: true }}
               className="flex justify-center space-x-4 mb-4"
             >
-              <a href="https://github.com/nilancy04" className="hover:text-purple-500 transition-colors"><Github size={20} /></a>
+              <a href="https://github.com/nilancy04" className="hover:text-purple-500 transition-colors"><Github   size={20} /></a>
               <a href="https://www.linkedin.com/in/nilancy04/" className="hover:text-purple-500 transition-colors"><Linkedin size={20} /></a>
               <a href="https://x.com/nilancy2005" className="hover:text-purple-500 transition-colors"><Twitter size={20} /></a>
             </motion.div>
