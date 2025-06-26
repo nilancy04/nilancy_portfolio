@@ -21,8 +21,10 @@ function App() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.25,
+        delayChildren: 0.15,
+        ease: 'easeInOut',
+        duration: 0.8
       }
     }
   };
@@ -30,17 +32,17 @@ function App() {
   const itemVariants = {
     hidden: { 
       opacity: 0, 
-      y: 50,
-      filter: "blur(10px)"
+      y: 40,
+      filter: "blur(6px)"
     },
     visible: { 
       opacity: 1, 
       y: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100
+        type: "tween",
+        ease: "easeInOut",
+        duration: 0.7
       }
     }
   };
@@ -48,7 +50,7 @@ function App() {
   const textRevealVariants = {
     hidden: {
       opacity: 0,
-      y: 20,
+      y: 16,
       clipPath: "inset(100% 0px 0px 0px)"
     },
     visible: {
@@ -57,7 +59,7 @@ function App() {
       clipPath: "inset(0% 0px 0px 0px)",
       transition: {
         duration: 0.8,
-        ease: "easeOut"
+        ease: "easeInOut"
       }
     }
   };
@@ -65,17 +67,17 @@ function App() {
   const codeBlockVariants = {
     hidden: { 
       opacity: 0,
-      scale: 0.95,
-      x: -50
+      scale: 0.98,
+      x: -30
     },
     visible: {
       opacity: 1,
       scale: 1,
       x: 0,
       transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100
+        type: "tween",
+        ease: "easeInOut",
+        duration: 0.7
       }
     }
   };
@@ -91,56 +93,65 @@ function App() {
       <div className="content-wrapper">
         {/* Navigation */}
         <nav className={`fixed w-full z-50 backdrop-blur-sm ${
-          isDark 
-            ? 'bg-[#0f1115]/80' 
-            : 'bg-white/80'
-        }`}>
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center space-x-2"
-              >
-                <Code2 className="w-8 h-8 text-purple-500" />
-                <span className="text-xl font-bold font-display tracking-wide">Portfolio</span>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="hidden md:flex items-center space-x-8"
-              >
-                {["About", "Skills", "Experience", "Education", "Certifications"].map((item, index) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="hover:text-purple-500 transition-colors font-medium tracking-wide"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                  >
-                    {item}
-                  </motion.a>
-                ))}
-              </motion.div>
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-purple-600 hover:bg-purple-700 transition-colors"
-              >
-                {isDark ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </motion.button>
-            </div>
-          </div>
-        </nav>
+  isDark 
+    ? 'bg-[#0f1115]/80' 
+    : 'bg-white/80'
+}`}>
+  <div className="container mx-auto px-6 py-4">
+    <div className="flex items-center justify-between">
+      
+      {/* Logo Section */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center space-x-2"
+      >
+        <Code2 className="w-8 h-8 text-purple-500" />
+        <span className="text-xl font-bold font-display tracking-wide">Portfolio</span>
+      </motion.div>
+
+      {/* Navigation + Theme Toggle Section */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="flex items-center space-x-4"
+      >
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center space-x-12">
+          {["About", "Skills", "Experience", "Education", "Certifications"].map((item, index) => (
+            <motion.a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="hover:text-purple-500 transition-colors font-medium tracking-wide"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1 }}
+            >
+              {item}
+            </motion.a>
+          ))}
+        </div>
+
+        {/* Theme Toggle Button */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          onClick={toggleTheme}
+          className="p-2 rounded-full bg-purple-600 hover:bg-purple-700 transition-colors"
+        >
+          {isDark ? (
+            <Sun className="w-5 h-5" />
+          ) : (
+            <Moon className="w-5 h-5" />
+          )}
+        </motion.button>
+      </motion.div>
+    </div>
+  </div>
+</nav>
 
         {/* Hero Section */}
         <section className="pt-32 pb-20 min-h-screen flex items-center relative">
@@ -169,11 +180,11 @@ function App() {
                   I am a{' '}
                   <TypeAnimation
                     sequence={[
-                      'Android Developer',
-                      2000,
                       'Full Stack Developer',
                       2000,
                       'UI/UX Enthusiast',
+                      2000,
+                      'Digital Marketer',
                       2000,
                     ]}
                     wrapper="span"
@@ -208,7 +219,7 @@ function App() {
                     </motion.a>
                   ))}
                   <motion.a
-                    href="https://drive.google.com/file/d/19QSRnzcyxPONz09mcKXrPQNMHYijCf9I/view?usp=drivesdk"
+                    href="https://drive.google.com/file/d/1SNmIWdhC7Wki69XRX7PTyfq7W25E18wL/view?usp=drivesdk"
                     variants={itemVariants}
                     className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
                   >
@@ -274,7 +285,9 @@ function App() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-20">
+        <section id="skills" className={
+          isDark ? 'bg-[#13151a]' : 'bg-gray-50'
+        }>
           <div className="container mx-auto px-6">
             <motion.h2 
               initial="hidden"
@@ -367,6 +380,72 @@ function App() {
           </div>
         </section>
 
+        {/* Projects Section */}
+        <section id="projects" className={isDark ? 'bg-[#181a20]' : 'bg-white'}>
+          <div className="container mx-auto px-6 py-20">
+            <motion.h2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={textRevealVariants}
+              className="text-3xl font-bold mb-4 text-center font-display tracking-tight"
+            >
+              Featured <span className="text-purple-500">Projects</span>
+            </motion.h2>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-100px' }}
+              variants={containerVariants}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12"
+            >
+              {[
+                {
+                  title: 'Stock Market Platform',
+                  description: 'Developed a responsive platform with secure payment integration and Google OAuth authentication.',
+                  tech: ['React.js', 'PHP', 'MySQL'],
+                  link: 'https://dtctradingclub.com/',
+                  github: 'https://github.com/Ajay309/stockproject'
+                },
+                {
+                  title: 'Digitalised Local Shopping',
+                  description: 'Built a smart solution to boost small vendor visibility with real-time browsing, ordering, and interaction.',
+                  tech: ['React.js', 'Node.js', 'MySQl', 'Express'],
+                  link: '',
+                  github: 'https://github.com/nilancy04/DigitalLocalShop'
+                },
+                {
+                  title: 'Discover Places',
+                  description: 'Developed a responsive travel website with Google Maps, travel planner, and EmailJS integration for smooth user interaction.',
+                  tech: ['React.js', 'EmailJS','Google Maps API'],
+                  link: 'https://discover-places.netlify.app/',
+                  github: 'https://github.com/nilancy04/Travel'
+                }
+              ].map((project, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={itemVariants}
+                  className={`p-8 rounded-2xl border border-purple-500/20 transition-all duration-300 shadow-lg ${isDark ? 'bg-[#23263a]' : 'bg-gray-50'} flex flex-col gap-4`}
+                >
+                  <h3 className="text-xl font-semibold font-display tracking-wide mb-2">{project.title}</h3>
+                  <p className={`${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((t, i) => (
+                      <span key={i} className="px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-500">{t}</span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4 mt-auto">
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-purple-500 hover:underline font-medium">Live Demo</a>
+                    )}
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-purple-500 transition-colors font-medium">GitHub</a>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
         {/* Experience Section */}
         <section id="experience" className={`py-20 ${
           isDark ? 'bg-[#13151a]' : 'bg-gray-50'
@@ -390,6 +469,21 @@ function App() {
                 className="relative pl-8 border-l-2 border-purple-500/20"
               >
                 {[
+                  {
+                    title: "MERN STACK INTERN",
+                    company: "SIKAR INFOTECH",
+                    period: "05/2025 - 07/2025",
+                    description: [
+                      "Engineered a fully dynamic, high-performance stock market platform with an interactive React.",
+                      "Designed robust, secure, and scalable APIs using PHP, ensuring smooth data flow and user experience.",
+                      "Optimized real-time data handling and storage with MySQL, enhancing system reliability.",
+                      "Seamlessly integrated Razorpay for secure payments and Google OAuth for effortless, one-click login."
+                    ],
+                    // certificate: {
+                    //   url: "https://drive.google.com/file/d/19MCuQMTFPL140nw5cFSwa1LVqFF-K0oh/view?usp=drivesdk",
+                    //   title: "View Certificate"
+                    // }
+                  },
                   {
                     title: "Virtual Internship - AI/ML",
                     company: "India Edu Program",
@@ -505,7 +599,7 @@ function App() {
                   title: "Bachelor of Technology",
                   school: "SRM Institute of Science and Technology",
                   period: "2023 - 2027",
-                  score: "9.59",
+                  score: "9.8",
                   scoreLabel: "CGPA",
                   maxScore: "10",
                   courses: ["Computer Science and Engineering"]
