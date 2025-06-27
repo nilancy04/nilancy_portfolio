@@ -126,7 +126,7 @@ function App() {
       >
         {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-12">
-          {["About", "Skills", "Projects","Experience", "Education", "Certifications"].map((item, index) => (
+          {["About", "Skills", "Projects","Experience", "Education", "Certifications","Contact"].map((item, index) => (
             <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
